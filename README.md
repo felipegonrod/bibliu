@@ -32,11 +32,11 @@ Bibliu is a mobile application designed to help you manage your reading journey 
 
 ## Usage
 
-- **Once the app is installed on your iOS device, you can start adding books, viewing their details, and tracking your reading progress.
+- Once the app is installed on your iOS device, you can start adding books, viewing their details, and tracking your reading progress.
 
 ### Contributing
 
-- **We welcome contributions to enhance Bibliu. Please fork the repository and submit pull requests.
+- We welcome contributions to enhance Bibliu. Please fork the repository and submit pull requests.
 
 ## License
 

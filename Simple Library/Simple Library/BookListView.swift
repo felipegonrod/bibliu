@@ -11,13 +11,21 @@ struct BookListView: View {
     @State private var books: [Book] = []
 
     var body: some View {
-        List(books, id: \.id) { book in
-            Text(book.title)
+        NavigationView {
+            VStack {
+                List(books, id: \.id) { book in
+                    Text(book.title)
+                }
+                .listStyle(PlainListStyle())
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .padding()
+            }
+            .onAppear {
+                fetchBooks()
+            }
+        .navigationTitle("Your Books")
         }
-        .onAppear {
-            fetchBooks()
-        }
-        .navigationTitle("Books")
     }
 
     func fetchBooks() {
@@ -32,8 +40,6 @@ struct BookListView: View {
     }
 }
 
-struct BookListView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookListView()
-    }
+#Preview {
+    BookListView()
 }

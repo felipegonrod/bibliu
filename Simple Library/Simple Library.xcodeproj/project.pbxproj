@@ -102,10 +102,10 @@
 			children = (
 				7D749FBA2C34EEEA00EBBF8C /* Simple_LibraryApp.swift */,
 				7D749FBC2C34EEEA00EBBF8C /* ContentView.swift */,
+				7D749FE62C350C9A00EBBF8C /* BookListView.swift */,
 				7D749FBE2C34EEEB00EBBF8C /* Assets.xcassets */,
 				7D749FC02C34EEEB00EBBF8C /* Preview Content */,
 				7D749FE42C350C6D00EBBF8C /* NetworkService.swift */,
-				7D749FE62C350C9A00EBBF8C /* BookListView.swift */,
 				7D749FE82C350CD900EBBF8C /* Book.swift */,
 			);
 			path = "Simple Library";

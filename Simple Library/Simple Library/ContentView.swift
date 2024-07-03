@@ -14,27 +14,30 @@ struct ContentView: View {
     @State private var books: [Book] = []
 
     var body: some View {
-        VStack {
-            Form {
-                Section(header: Text("Add a Book")) {
-                    TextField("Title", text: $title)
-                    TextField("Author", text: $author)
-                    TextField("Description", text: $description)
-                    Button(action: saveBook) {
-                        Text("Save")
+        NavigationView {
+            VStack {
+                Form {
+                    Section(header: Text("Add a Book")) {
+                        TextField("Title", text: $title)
+                        TextField("Author", text: $author)
+                        TextField("Description", text: $description)
+                        Button(action: saveBook) {
+                            Text("Save")
+                        }
                     }
                 }
-            }
 
-            Spacer()
+                Spacer()
 
-            NavigationLink(destination: BookListView()) {
-                Text("See all books")
+                NavigationLink(destination: BookListView()) {
+                    Text("See all books")
+                        .bold()
+                }
+                .padding()
             }
             .padding()
-        }
-        .padding()
         .navigationTitle("Book Library")
+        }
     }
 
     func saveBook() {

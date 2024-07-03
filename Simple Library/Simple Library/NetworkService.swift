@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     static let shared = NetworkService()
 
-    private let baseURL = URL(string: "https://65c3-187-188-17-78.ngrok-free.app")!
+    private let baseURL = URL(string: "https://7280-2806-10a6-6-1441-ab-adcc-5185-2e37.ngrok-free.app")!
 
     func fetchBooks(completion: @escaping ([Book]?) -> Void) {
         let url = baseURL.appendingPathComponent("/books")

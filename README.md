@@ -10,7 +10,7 @@ Bibliu is a mobile application designed to help you manage your reading journey 
 
 ## Features
 
-- **Load Book Details**: Add and manage book titles, authors, descriptions, notes, and page progress.
+- **Load Book Details**: Add and manage book titles, authors, descriptions, notes.
 - **Book List**: View a comprehensive list of your books.
 - **Book Information**: Access detailed information about each book.
 

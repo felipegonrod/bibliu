@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     static let shared = NetworkService()
 
-    private let baseURL = URL(string: "https://7280-2806-10a6-6-1441-ab-adcc-5185-2e37.ngrok-free.app")!
+    private let baseURL = URL(string: "CUSTOM-DOMAIN")!
 
     func fetchBooks(completion: @escaping ([Book]?) -> Void) {
         let url = baseURL.appendingPathComponent("/books")
@@ -58,13 +58,57 @@ class NetworkService {
                 return
             }
 
-            // Check response status code if necessary
             if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 201 {
-                    completion(true)
-                } else {
-                    completion(false)
-                }
+                completion(httpResponse.statusCode == 201)
+            } else {
+                completion(false)
+            }
+        }.resume()
+    }
+
+    func updateBook(id: Int, title: String, author: String, description: String, completion: @escaping (Bool) -> Void) {
+        let url = baseURL.appendingPathComponent("/books/\(id)")
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let updatedBook = [
+            "title": title,
+            "author": author,
+            "description": description
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: updatedBook)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error updating book: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse {
+                completion(httpResponse.statusCode == 200)
+            } else {
+                completion(false)
+            }
+        }.resume()
+    }
+
+    func deleteBook(id: Int, completion: @escaping (Bool) -> Void) {
+        let url = baseURL.appendingPathComponent("/books/\(id)")
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error deleting book: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse {
+                completion(httpResponse.statusCode == 200)
             } else {
                 completion(false)
             }

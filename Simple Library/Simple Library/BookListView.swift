@@ -14,7 +14,9 @@ struct BookListView: View {
         NavigationView {
             VStack {
                 List(books, id: \.id) { book in
-                    Text(book.title)
+                    NavigationLink(destination: BookDetailView(book: book)) {
+                        Text(book.title)
+                    }
                 }
                 .listStyle(PlainListStyle())
                 .background(Color.gray.opacity(0.2))
@@ -24,14 +26,18 @@ struct BookListView: View {
             .onAppear {
                 fetchBooks()
             }
-        .navigationTitle("Your Books")
+            .navigationTitle("Your library 📚 ")
         }
+        Text("Bibliu")
+            .bold()
     }
 
     func fetchBooks() {
         NetworkService.shared.fetchBooks { books in
             if let books = books {
-                self.books = books
+                DispatchQueue.main.async {
+                    self.books = books
+                }
             } else {
                 // Handle error scenario
                 print("Failed to fetch books")

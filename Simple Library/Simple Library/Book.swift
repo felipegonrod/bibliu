@@ -5,17 +5,17 @@
 //  Created by Felipe González on 02/07/24.
 //
 
-struct Book: Identifiable, Codable {
-    let id: Int
-    let title: String
-    let author: String
-    let description: String
+class Book: Identifiable, Codable {
+    var id: Int
+    var title: String
+    var author: String
+    var description: String
+
+    init(id: Int, title: String, author: String, description: String) {
+        self.id = id
+        self.title = title
+        self.author = author
+        self.description = description
+    }
 }
 
-struct MockData {
-    static let books = [
-        Book(id: 1, title: "Book 1", author: "Si", description: "Si"),
-        Book(id: 2, title: "Book 2", author: "No", description: "Si"),
-        Book(id: 3, title: "Book 3", author: "Gonzalo", description: "Si"),
-    ]
-}

@@ -13,12 +13,17 @@ struct BookDetailView: View {
     @State private var title: String
     @State private var author: String
     @State private var description: String
+    @State private var notes: String
+    @State private var pages: String
 
     init(book: Book) {
         self.book = book
         _title = State(initialValue: book.title)
         _author = State(initialValue: book.author)
         _description = State(initialValue: book.description)
+        _notes = State(initialValue: book.notes)
+        _pages = State(initialValue: book.pages)
+    
     }
 
     var body: some View {
@@ -30,6 +35,10 @@ struct BookDetailView: View {
                         TextField("Author", text: $author)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         TextField("Description", text: $description)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("Notes", text: $notes)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("Pages", text: $pages)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                     .padding()
@@ -68,6 +77,10 @@ struct BookDetailView: View {
                         Text("Author: \(book.author)")
                             .font(.title2)
                         Text(book.description)
+                            .font(.body)
+                        Text(book.notes)
+                            .font(.body)
+                        Text("Current page: \(book.pages)")
                             .font(.body)
                     }
                     .padding()
@@ -108,9 +121,9 @@ struct BookDetailView: View {
     
 
     func saveChanges() {
-        NetworkService.shared.updateBook(id: book.id, title: title, author: author, description: description) { success in
+        NetworkService.shared.updateBook(id: book.id, title: title, author: author, description: description, notes: notes, pages: pages) { success in
             if success {
-                self.book = Book(id: self.book.id, title: self.title, author: self.author, description: self.description)
+                self.book = Book(id: self.book.id, title: self.title, author: self.author, description: self.description, notes: self.notes, pages: self.pages)
                 isEditing.toggle()
             } else {
                 // Handle update failure
@@ -124,6 +137,8 @@ struct BookDetailView: View {
         title = book.title
         author = book.author
         description = book.description
+        notes = book.notes
+        pages = book.pages
         isEditing.toggle()
     }
 
@@ -142,6 +157,6 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(book: Book(id: 1, title: "Sample Book", author: "John Doe", description: "This is a sample book description."))
+        BookDetailView(book: Book(id: 1, title: "Sample Book", author: "John Doe", description: "This is a sample book description.", notes: "The character is fucked up", pages: "56"))
     }
 }

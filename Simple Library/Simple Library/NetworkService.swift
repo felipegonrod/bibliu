@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     static let shared = NetworkService()
 
-    private let baseURL = URL(string: "CUSTOM-DOMAIN")!
+    private let baseURL = URL(string: "https://5412-189-203-85-78.ngrok-free.app")!
 
     func fetchBooks(completion: @escaping ([Book]?) -> Void) {
         let url = baseURL.appendingPathComponent("/books")
@@ -37,7 +37,7 @@ class NetworkService {
         }.resume()
     }
 
-    func saveBook(title: String, author: String, description: String, completion: @escaping (Bool) -> Void) {
+    func saveBook(title: String, author: String, description: String, notes: String, pages: String, completion: @escaping (Bool) -> Void) {
         let url = baseURL.appendingPathComponent("/books")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -46,7 +46,9 @@ class NetworkService {
         let newBook = [
             "title": title,
             "author": author,
-            "description": description
+            "description": description,
+            "notes": notes,
+            "pages": pages
         ]
 
         request.httpBody = try? JSONSerialization.data(withJSONObject: newBook)
@@ -66,7 +68,7 @@ class NetworkService {
         }.resume()
     }
 
-    func updateBook(id: Int, title: String, author: String, description: String, completion: @escaping (Bool) -> Void) {
+    func updateBook(id: Int, title: String, author: String, description: String, notes: String, pages: String, completion: @escaping (Bool) -> Void) {
         let url = baseURL.appendingPathComponent("/books/\(id)")
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
@@ -75,7 +77,9 @@ class NetworkService {
         let updatedBook = [
             "title": title,
             "author": author,
-            "description": description
+            "description": description,
+            "notes": notes,
+            "pages": pages
         ]
 
         request.httpBody = try? JSONSerialization.data(withJSONObject: updatedBook)

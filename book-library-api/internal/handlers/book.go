@@ -44,7 +44,7 @@ func (h *BookHandler) CreateBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdBook := h.Service.Create(book.Title, book.Author, book.Description)
+	createdBook := h.Service.Create(book.Title, book.Author, book.Description, book.Notes, book.Pages)
 	respondWithJSON(w, http.StatusCreated, createdBook)
 }
 
@@ -63,7 +63,7 @@ func (h *BookHandler) UpdateBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.Service.Update(id, book.Title, book.Author, book.Description)
+	err = h.Service.Update(id, book.Title, book.Author, book.Description, book.Notes, book.Pages)
 	if err != nil {
 		respondWithError(w, http.StatusNotFound, "Book not found")
 		return

@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var title = ""
     @State private var author = ""
     @State private var description = ""
+    @State private var notes = ""
+    @State private var pages = ""
     @State private var books: [Book] = []
     @State private var saveMessage = ""
 
@@ -26,6 +28,12 @@ struct ContentView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.vertical, 5)
                         TextField("Description", text: $description)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.vertical, 5)
+                        TextField("Notes", text: $notes)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.vertical, 5)
+                        TextField("Pages", text: $pages)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.vertical, 5)
                         Button(action: saveBook) {
@@ -70,7 +78,7 @@ struct ContentView: View {
     }
 
     func saveBook() {
-        NetworkService.shared.saveBook(title: title, author: author, description: description) { success in
+        NetworkService.shared.saveBook(title: title, author: author, description: description, notes: notes, pages: pages) { success in
             if success {
                 // Show success message
                 withAnimation {
@@ -86,6 +94,8 @@ struct ContentView: View {
                 title = ""
                 author = ""
                 description = ""
+                notes = ""
+                pages = ""
             } else {
                 // Optionally handle failure scenario
                 print("Failed to save book")
